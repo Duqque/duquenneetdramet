@@ -22,6 +22,7 @@ export function Footer() {
             <ul>
               <li><Link href="/engagement#observatoire">Observatoire du judo</Link></li>
               <li><Link href="/engagement#programme-jeunes">Programme jeunes</Link></li>
+              <li><Link href="/veille">Veille — Case Intelligence</Link></li>
             </ul>
           </div>
           <div>

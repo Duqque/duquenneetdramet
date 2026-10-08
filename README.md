@@ -28,7 +28,16 @@ Sans `DATABASE_URL`, les réservations utilisent un stockage mémoire (développ
 - Sécurité : CSP, HSTS, nosniff, X-Frame-Options, Referrer-Policy, Permissions-Policy dans `next.config.mjs`. `robots.txt` n'est pas une mesure de sécurité.
 - SEO : title / description / canonical par page, JSON-LD Organization, `sitemap.xml`, `robots.txt`.
 
+## D&D Case Intelligence
+
+- Carte flottante (coin inférieur droit, compacte sur mobile) qui fait défiler des cas réels du sport toutes les 9,5 s : pause au survol, au focus ou via le bouton, navigation ← →, réduction en pastille, progression conservée pendant la session. Masquée pendant le hero et sur les pages `/veille`.
+- Rotation éditoriale : les 11 domaines alternent (Sponsoring → Design → Performance → Marketing → Événementiel → Développement → Stratégie → Communication → Concept créatif → Audit → Conseils), puis on recommence avec les cas suivants.
+- Bibliothèque : `src/content/cases.ts` (24 cas vérifiés, sources de préférence francophones) ou table `cases` (db/schema.sql) si une base est configurée. Ajouter un cas ne demande aucune modification du front-end.
+- Pages : `/veille` (bibliothèque par domaine) et `/veille/[id]` (problématique, réponse, impact, D&D Lens, sources).
+
 ## Pas encore fait (phases suivantes)
+
+- **Case Intelligence** : 24 cas vérifiés sur les ~110 visés ; images des cas à fournir (champ `image`).
 
 - **Admin / CMS / CRM** (auth propriétaire, MFA, rôles, éditeur de blocs, médiathèque, automatisations, audit) : seul le schéma SQL existe.
 - **Worker d'envoi d'e-mails** (SMTP), rappels J-1 / H-1, annulation / reprogrammation, suivi post-RDV.

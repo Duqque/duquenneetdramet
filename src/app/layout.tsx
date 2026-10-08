@@ -4,6 +4,8 @@ import './globals.css';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Motion } from '@/components/Motion';
+import { CaseCard } from '@/components/CaseCard';
+import { getCases } from '@/lib/cases';
 import { SITE } from '@/lib/site';
 
 const geomini = localFont({
@@ -39,7 +41,8 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: '#0000ee' };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cases = await getCases();
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -56,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main id="main">{children}</main>
         <Footer />
+        <CaseCard cases={cases} />
         <Motion />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       </body>
