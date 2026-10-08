@@ -344,3 +344,21 @@ fieldset.glass { border: 0; min-width: 0; margin: 0; }
   .h1 em, .h2 em, .h2 span { display: block; }
   .stats .mini { max-width: 140px; }
 }
+
+/* Hero — mode photo : les images couvrent tout l'écran, l'athlète ne bouge pas */
+.hero.photo .frames { position: absolute; inset: 0; }
+.hero.photo .frame-ph { position: absolute; inset: 0; opacity: 0; transform: scale(1.025); transition: opacity 0.7s var(--ease), transform 1.4s var(--ease); }
+.hero.photo .frame-ph[data-on] { opacity: 1; transform: scale(1); }
+.hero.photo .frame-ph img { object-fit: cover; object-position: 62% 30%; }
+.hero.photo::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(0, 0, 60, 0.35) 0%, rgba(0, 0, 60, 0) 45%); }
+.hero.photo .word { left: calc(var(--pad) - 0.06em); right: auto; bottom: clamp(24px, 6vh, 72px); width: auto; }
+.hero.photo .word-t { display: block; font-family: var(--display); font-weight: 600; font-size: clamp(96px, 13.5vw, 230px); letter-spacing: -0.065em; line-height: 0.78; color: #fff; }
+@media (max-width: 760px) {
+  .hero.photo { background: #020c94; }
+  .hero.photo .frames { top: 30svh; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16%); mask-image: linear-gradient(to bottom, transparent 0, #000 16%); }
+  .hero.photo .frame-ph img { object-position: 58% 0%; }
+  .hero.photo::after { background: linear-gradient(180deg, rgba(0, 0, 70, 0) 70%, rgba(0, 0, 70, 0.45) 100%); }
+  .hero.photo .word { bottom: 20px; }
+  .hero.photo .word-t { font-size: 25vw; }
+  .hero.photo .sport { bottom: 28px; top: auto; }
+}
