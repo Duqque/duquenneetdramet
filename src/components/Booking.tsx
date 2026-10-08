@@ -59,11 +59,10 @@ export function Booking() {
 
   if (state === 'done') {
     return (
-      <div className="glass center" aria-live="polite" style={{ maxWidth: 720, padding: 'clamp(40px,6vw,80px)' }}>
-        <span className="tag dot sky">Confirmé</span>
-        <h2 className="h-xl w-xl mt-m">C’est noté.</h2>
-        <p className="h-sm grad-text mt-m" style={{ textTransform: 'capitalize' }}>{longDate(slot)}</p>
-        <p className="lead center mt-s">Une confirmation vous est envoyée par e-mail.</p>
+      <div className="glass" aria-live="polite" style={{ padding: 'clamp(32px, 6vw, 72px)' }}>
+        <span className="pill">Confirmé</span>
+        <h2 className="h1" style={{ marginTop: 24 }}>C’est noté.<br /><em style={{ textTransform: 'none' }}>{longDate(slot)}</em></h2>
+        <p className="micro" style={{ marginTop: 20 }}>Une confirmation vous est envoyée par e-mail.</p>
       </div>
     );
   }
@@ -108,7 +107,7 @@ export function Booking() {
           </div>
           <div>
             <Title n="04">À quelle heure ?</Title>
-            <p className="small" style={{ marginTop: -8 }}>Heure de Paris</p>
+            <p className="small" style={{ marginTop: -12, marginBottom: 14 }}>Heure de Paris</p>
             {state === 'taken' && <p className="err" aria-live="polite">Ce créneau vient d’être pris. Choisissez-en un autre.</p>}
             {!date ? <p className="lead">Choisissez d’abord un jour.</p> : slots.length === 0 ? <p className="lead">Aucun créneau ce jour-là.</p> : (
               <div className="slots">
@@ -133,7 +132,7 @@ export function Booking() {
           <div className="hp" aria-hidden="true"><label>Ne pas remplir<input tabIndex={-1} autoComplete="off" value={form.website} onChange={set('website')} /></label></div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap', justifyContent: 'space-between' }}>
             <p className="small" style={{ margin: 0, textTransform: 'capitalize' }}>{longDate(slot)} · {duration} min · {reason}</p>
-            <button className="btn btn-white" disabled={!ready || state === 'sending'}>{state === 'sending' ? 'Envoi…' : 'Confirmer'} <span className="arr" aria-hidden="true">→</span></button>
+            <button className="btn btn-violet" disabled={!ready || state === 'sending'}>{state === 'sending' ? 'Envoi…' : 'Confirmer'} <span className="arr" aria-hidden="true">→</span></button>
           </div>
           <div aria-live="polite" style={{ marginTop: 16 }}>
             {state === 'error' && <p className="err">Un problème est survenu. Réessayez dans un instant.</p>}

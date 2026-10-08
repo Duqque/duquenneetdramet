@@ -1,191 +1,170 @@
 import Link from 'next/link';
-import { Lines } from '@/components/Lines';
-import { CTA } from '@/components/Arrow';
-import { LightBars } from '@/components/LightBars';
-import { EXPERTISES, METHOD, PILLARS, TRANSFORMATIONS } from '@/content/data';
+import { Hero } from '@/components/home/Hero';
+import { Intro } from '@/components/home/Intro';
+import { Athlete } from '@/components/Athlete';
+import { Frame } from '@/components/Frame';
+import { Btn } from '@/components/Arrow';
+import { EXPERTISES, METHOD, TRANSFORMATIONS } from '@/content/data';
 
-const VISUALS = ['v1', 'v2', 'v3'];
-const CARDS = ['g1', 'g2', 'g3'];
+// Chaque expertise est incarnée par une discipline (index de tenue dans OUTFITS).
+const SHOW = [
+  { slug: 'strategie', outfit: 6 },
+  { slug: 'innovation', outfit: 5, cls: 'low' },
+  { slug: 'transformation', outfit: 0, main: true },
+  { slug: 'experience', outfit: 4, cls: 'tiny' },
+  { slug: 'marque', outfit: 1, cls: 'low tiny' },
+  { slug: 'performance', outfit: 11 },
+];
+
+const BARS = Array.from({ length: 64 }, (_, k) => 30 + 55 * Math.abs(Math.sin(k * 0.37) * Math.cos(k * 0.11)) + (k > 56 ? 15 : 0));
 
 export default function Home() {
+  const [t1, t2, t3] = TRANSFORMATIONS;
   return (
     <>
-      {/* 01 — La question */}
-      <section className="sec hero">
-        <LightBars />
-        <div>
-          <span className="tag dot sky" data-fade>Duquenne &amp; Dramet Consulting</span>
-          <Lines as="h1" className="h-hero mt-m" lines={['Et si nous', 'changions', 'le sport ?']} />
+      <Intro />
+      <Hero />
+
+      {/* 01 — Intro éditoriale */}
+      <section className="ed sec">
+        <div className="in intro-ed">
+          <p className="micro lbl" data-fade>Duquenne &amp; Dramet Consulting ↘</p>
+          <h2 className="h1" data-fade>Le sport change.<br /><em>Nous changeons la manière de le faire.</em></h2>
+          <p className="micro side" data-fade>Cabinet de conseil, d’innovation et de transformation dédié au sport. Stratégie, création, technologie et terrain, réunis dans une seule équipe.</p>
         </div>
-        <div className="hero-foot">
-          <p className="lead" data-fade style={{ maxWidth: '34ch', color: 'rgba(255,255,255,.82)' }}>
-            Un cabinet de conseil, d’innovation et de transformation dédié au sport.
-          </p>
-          <a href="#contexte" className="scroll-cue small" style={{ color: 'var(--white)' }}>
-            Faites défiler <span className="circle" aria-hidden="true">↓</span>
-          </a>
+
+        {/* 02 — Les expertises, présentées comme une collection */}
+        <div className="in">
+          <div className="show">
+            {SHOW.map((s) => {
+              const e = EXPERTISES.find((x) => x.slug === s.slug)!;
+              return (
+                <Link key={s.slug} href={`/expertises#${s.slug}`} className={`prod${s.main ? ' main' : ''} ${s.cls ?? ''}`} data-fade>
+                  <div className="card"><Athlete active={s.outfit} /></div>
+                  <div className="lab">
+                    <div style={{ display: 'grid', gap: 3 }}>
+                      <span className="micro b up">{e.name}</span>
+                      <span className="micro dim">{e.line}</span>
+                    </div>
+                    {s.main && <span className="pill">Signature</span>}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="show-foot"><Link href="/expertises" className="link-arr">Six expertises ↗</Link></div>
         </div>
       </section>
 
-      {/* 02 — Le contexte */}
-      <section className="sec full on-blue" id="contexte" style={{ justifyContent: 'center' }}>
-        <div className="center" style={{ maxWidth: 1100 }}>
-          <span className="tag dot">Le contexte</span>
-          <Lines className="h-lg w-l mt-l" lines={['Le sport change.', 'Les usages changent.', 'Les technologies changent.', 'Les attentes changent.']} />
-          <Lines className="h-xl w-l mt-l" lines={['Alors pourquoi', 'continuer à faire', 'comme avant ?']} />
-        </div>
-      </section>
-
-      {/* 03 — D&D */}
-      <section className="sec full halo" style={{ justifyContent: 'space-between' }}>
-        <div className="hero-foot" data-fade>
-          <span className="tag dot sky">Qui nous sommes</span>
-          <span className="small">Conseil · Innovation · Transformation</span>
-        </div>
-        <div>
-          <Lines as="h2" className="dd-word" lines={['D&D']} />
-          <p className="h-md w-l center mt-m" data-fade>Duquenne &amp; Dramet <span className="ghost">Consulting</span></p>
-        </div>
-        <div className="hero-foot" data-fade>
-          <span className="small" style={{ color: 'var(--white)', fontWeight: 500 }}>Un cabinet de conseil conçu comme un studio.</span>
-          <CTA href="/expertises" variant="dark">Nos expertises</CTA>
-        </div>
-      </section>
-
-      {/* 04 — Manifeste */}
-      <section className="sec light">
-        <span className="tag dot">Manifeste</span>
-        <Lines className="h-xl mt-m" lines={['Nous croyons que', 'le sport peut être', 'plus vivant.']} />
-        <div className="split mt-l">
-          <div className="visual" data-fade style={{ aspectRatio: '4 / 3' }}><div className="v2" /></div>
-          <div className="stack" style={{ '--gap': '28px' } as React.CSSProperties}>
-            <p className="h-md w-l" data-fade>
-              <span className="chev">»</span>Plus innovant. Plus humain. Plus ambitieux. <span className="em-blue">Plus mémorable.</span>
+      {/* 03 — Manifeste */}
+      <section className="ed" style={{ paddingBottom: 'var(--section)' }}>
+        <div className="in man">
+          <div><span className="pill-line" data-fade>Manifeste</span></div>
+          <div>
+            <p className="h-man" data-fade>
+              Nous croyons que le sport peut être plus vivant, plus innovant, plus humain. Nous cherchons ce qui doit changer, <em>puis nous construisons ce qui vient après — avec exigence, sur le terrain, jusqu’à ce que chaque idée devienne un mouvement.</em>
             </p>
-            <p className="lead" data-fade>Nous cherchons ce qui doit changer. Puis nous construisons ce qui vient après.</p>
-            <ul className="bars-list" data-fade>
-              <li>Nous voulons contribuer à transformer le sport.</li>
-              <li>Pas seulement l’accompagner.</li>
-              <li>Le transformer, de l’intérieur et sur le terrain.</li>
-            </ul>
+            <p className="micro" data-fade>Par l’émotion. Par l’innovation. Par l’engagement. Trois convictions qui guident chacune de nos transformations.</p>
           </div>
         </div>
       </section>
 
-      {/* 05 — Les trois piliers */}
-      <section className="sec light" style={{ paddingTop: 0 }}>
-        <div className="split" style={{ alignItems: 'end' }}>
-          <Lines className="h-lg" lines={['Trois piliers,', 'une conviction.']} />
-          <p className="lead" data-fade>Émotion, innovation, engagement : ce qui fait vivre un sport est aussi ce qui le fait avancer.</p>
+      {/* 04 — Immersion */}
+      <section className="vis-wrap" data-tone="light">
+        <div className="gal-head ed" style={{ padding: 0 }}>
+          <span className="micro">Ce que nous changeons</span>
+          <Link href="/transformations" className="link-arr">Toutes les transformations ↗</Link>
         </div>
-        <div className="grid-3 mt-l">
-          {PILLARS.map((p, i) => (
-            <article key={p.name} className={`gcard ${CARDS[i]}`} data-fade>
-              <span className="num">0{i + 1}</span>
-              <div>
-                <h3 className="h-lg">{p.name}</h3>
-                <p className="mt-s" style={{ margin: '12px 0 0', color: 'rgba(255,255,255,.8)' }}>{p.line}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+        <div className="gal">
+          <Frame className="wide" outfit={5} parallax pose={{ right: '14%', height: '104%' }}
+            lights={[{ x: '58%', y: '28%', s: '48%', c: 'rgba(102, 56, 255, 0.8)' }, { x: '82%', y: '90%', s: '40%', c: 'rgba(50, 59, 255, 0.55)' }]}>
+            <span className="top">D&amp;D</span>
+            <div className="over">
+              <p className="t-img">Chaque transformation<br />commence par une question.</p>
+              <Btn href={`/transformations/${t1.slug}`} variant="violet">Découvrir</Btn>
+            </div>
+          </Frame>
 
-      {/* 06 — Méthode */}
-      <section className="sec mist">
-        <span className="tag dot">Méthode</span>
-        <Lines className="h-xl mt-m" lines={['Une idée ne devient', 'jamais une transformation', 'par hasard.']} />
-        <div className="mt-l">
-          {METHOD.map((m) => (
-            <div className="step" key={m.n} data-fade>
-              <span className="n">{m.n}</span>
-              <h3 className="h-lg">{m.name}</h3>
-              <div className="verbs">{m.verbs.map((v) => <span key={v}>{v}</span>)}</div>
-            </div>
-          ))}
-        </div>
-        <p className="h-md w-l mt-l" data-fade>De l’intuition <span className="em-blue">au mouvement.</span></p>
-      </section>
-
-      {/* 07 — Expertises + panneau chiffres */}
-      <section className="sec light">
-        <div className="panel" data-fade>
-          <div className="split" style={{ alignItems: 'end' }}>
-            <div>
-              <p className="small" style={{ color: '#3a3d4d', margin: 0 }}>Ce que nous savons faire</p>
-              <div className="stat mt-s">6<span style={{ fontSize: '.35em', letterSpacing: '-.02em', marginLeft: '.3em' }}>expertises</span></div>
-              <p className="lead mt-m" style={{ color: '#3a3d4d' }}>Une seule équipe pour relier stratégie, création, technologie et terrain.</p>
-            </div>
-            <div className="stat-card" style={{ justifySelf: 'end' }}>
-              <div className="stat">4<span className="ghost">×</span></div>
-              <p className="h-sm mt-s">Déceler, défier, dessiner, déclencher.</p>
-              <p className="small" style={{ margin: '6px 0 0' }}>Une méthode en quatre temps</p>
-            </div>
+          {/* 05 — Grille visuelle */}
+          <div className="gal-2">
+            <Frame outfit={6} href={`/transformations/${t2.slug}`} label={t2.project} pose={{ right: '-6%', height: '118%' }}
+              lights={[{ x: '70%', y: '35%', s: '70%', c: 'rgba(96, 54, 255, 0.75)' }]}>
+              <div className="cap"><p className="h4">{t2.punchline}</p><span className="micro">{t2.sector} ↗</span></div>
+            </Frame>
+            <Frame outfit={4} href={`/transformations/${t3.slug}`} label={t3.project} pose={{ right: '10%', height: '112%' }}
+              lights={[{ x: '40%', y: '30%', s: '65%', c: 'rgba(50, 59, 255, 0.7)' }, { x: '90%', y: '80%', s: '40%', c: 'rgba(128, 94, 255, 0.5)' }]}>
+              <div className="cap"><p className="h4">{t3.punchline}</p><span className="micro">{t3.sector} ↗</span></div>
+            </Frame>
           </div>
         </div>
-
-        <Lines className="h-lg mt-xl" lines={['Ce que nous savons faire.']} />
-        <div className="grid-3 mt-l">
-          {EXPERTISES.map((e) => (
-            <Link key={e.slug} href={`/expertises#${e.slug}`} className="xcard" data-cursor="VIEW">
-              <span className="label">{e.name}</span>
-              <span className="go circle" aria-hidden="true">↗</span>
-              <p>{e.line}</p>
-            </Link>
-          ))}
-        </div>
-        <div className="mt-l"><CTA href="/expertises" variant="dark">Découvrir nos expertises</CTA></div>
       </section>
 
-      {/* 08 — Transformations */}
-      <section className="sec">
-        <div className="split" style={{ alignItems: 'end' }}>
-          <Lines className="h-xl" lines={['Ce que nous', 'changeons.']} />
-          <p className="lead" data-fade>Chaque projet commence par une question, et se termine par un mouvement.</p>
-        </div>
-        <div className="mt-l">
-          {TRANSFORMATIONS.map((t, i) => (
-            <Link key={t.slug} href={`/transformations/${t.slug}`} className="trow" data-cursor="VIEW">
-              <span className="small">{t.sector}</span>
-              <div className="thumb"><div className={VISUALS[i % 3]} /></div>
-              <div>
-                <p className="h-md title" style={{ margin: 0 }}>{t.punchline}</p>
-                <p className="small" style={{ margin: '10px 0 0' }}>{t.project} · {t.expertises.join(' · ')}</p>
+      {/* 06 — Méthode, comme un rapport technique */}
+      <section className="ed sec" style={{ paddingTop: 150 }}>
+        <div className="in">
+          <div className="mag">
+            <span className="logo-s" data-fade>D&amp;D</span>
+            <div className="wide-col">
+              <h2 className="h2" data-fade>Une idée ne devient jamais<br /><span>une transformation par hasard.</span><br /><em>De l’intuition au mouvement, en quatre temps.</em></h2>
+              <p className="micro mt-s" data-fade style={{ marginTop: 24, maxWidth: 360 }}>Notre méthode relie l’observation du terrain, la remise en question, la conception et le déploiement mesuré.</p>
+            </div>
+          </div>
+
+          {/* 07 — Les quatre temps */}
+          <div className="feat">
+            {METHOD.map((m, k) => (
+              <div key={m.n}>
+                <Link href="/expertises" className="feat-row" data-fade>
+                  <span className="num-id">{m.n}</span>
+                  <div className="kick">
+                    <span className="micro">Temps {k + 1} sur 4</span>
+                    <span className="h4">{m.name}</span>
+                  </div>
+                  <span className="micro">{m.verbs.join(' ')}</span>
+                  <span className="arrow" aria-hidden="true">↗</span>
+                </Link>
+                {k === 0 && (
+                  <div className="stats" data-fade>
+                    <div>
+                      <div className="mini"><Athlete active={9} /></div>
+                      <p className="micro b up" style={{ marginTop: 10 }}>Méthode D&amp;D</p>
+                    </div>
+                    <div>
+                      <p className="micro">Du constat au déploiement</p>
+                      <p className="h4" style={{ marginTop: 6 }}>Quatre temps, douze actions</p>
+                      <p className="big-num" style={{ marginTop: 28 }}>4<small>/ temps</small></p>
+                    </div>
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}><span className="micro">Déceler</span><span className="micro">Déclencher</span></div>
+                      <div className="bars" aria-hidden="true">{BARS.map((h, j) => <i key={j} className={j > 56 ? 'hi' : ''} style={{ height: `${h}%` }} />)}</div>
+                      <div className="meta"><span className="micro" style={{ color: 'var(--text-1)' }}>12 actions</span><Link href="/expertises" className="btn btn-dark" style={{ height: 26, fontSize: 9, padding: '0 12px' }}>Voir</Link></div>
+                    </div>
+                  </div>
+                )}
               </div>
-              <span className="circle" aria-hidden="true">→</span>
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
-        <div className="mt-l"><CTA href="/transformations" variant="line">Voir les transformations</CTA></div>
       </section>
 
-      {/* 09 — Engagement */}
-      <section className="sec full rings" style={{ justifyContent: 'center' }}>
-        <div className="center" style={{ maxWidth: 1100 }}>
-          <span className="tag dot sky">Engagement</span>
-          <Lines className="h-xl mt-m" lines={['Nous ne voulons pas', 'seulement travailler', 'pour le sport.']} />
-          <Lines className="h-lg mt-m grad-text" lines={['Nous voulons aussi agir pour lui.']} />
-        </div>
-        <div className="grid-2 mt-xl" style={{ maxWidth: 1100, marginLeft: 'auto', marginRight: 'auto', width: '100%' }}>
-          <Link href="/engagement#observatoire" className="glass" data-fade data-cursor="OPEN">
-            <span className="tag">Observatoire du judo</span>
-            <p className="h-md w-l mt-m">Observer le judo pour imaginer celui de demain.</p>
-          </Link>
-          <Link href="/engagement#programme-jeunes" className="glass" data-fade data-cursor="OPEN">
-            <span className="tag">Programme jeunes</span>
-            <p className="h-md w-l mt-m">Former aujourd’hui les sportifs de demain.</p>
-          </Link>
-        </div>
-        <div className="center mt-l"><CTA href="/engagement" variant="line">Découvrir notre engagement</CTA></div>
+      {/* 08 — Image de marque : l'engagement judo */}
+      <section className="vis-wrap" data-tone="light">
+        <Frame className="brand" outfit={0} href="/engagement" label="Notre engagement dans le judo" parallax pose={{ right: '6%', height: '100%' }}
+          lights={[{ x: '78%', y: '20%', s: '50%', c: 'rgba(102, 56, 255, 0.8)' }, { x: '30%', y: '110%', s: '60%', c: 'rgba(24, 0, 90, 0.9)' }]}>
+          <span className="micro kick-top">Observatoire du judo · Programme jeunes</span>
+          <span className="logo-xl">D&amp;D</span>
+          <span className="micro kick-bot">Nous ne voulons pas seulement travailler pour le sport. Nous voulons aussi agir pour lui.</span>
+        </Frame>
       </section>
 
-      {/* 10 — Conversation */}
-      <section className="sec full sky" style={{ justifyContent: 'center', textAlign: 'center' }}>
-        <Lines as="h2" className="h-hero w-xl" lines={['Et vous ?']} />
-        <Lines className="h-lg w-l mt-m" lines={['Qu’aimeriez-vous changer ?']} />
-        <div className="mt-l" style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }} data-fade>
-          <CTA href="/parlons-nous" variant="dark">Lancer une conversation</CTA>
-          <CTA href="/transformations" variant="white">Nos transformations</CTA>
+      {/* 09 — Conversation */}
+      <section className="final ed">
+        <div className="in">
+          <div className="cta-block">
+            <h2 className="h1" data-fade>Et vous ?<br /><em>Qu’aimeriez-vous changer ?</em></h2>
+            <p className="micro" data-fade style={{ maxWidth: 260 }}>Choisissez un sujet, une durée, un créneau. Nous ouvrons la conversation.</p>
+            <div data-fade><Btn href="/parlons-nous" variant="violet">Lancer une conversation</Btn></div>
+          </div>
         </div>
       </section>
     </>

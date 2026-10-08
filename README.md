@@ -16,8 +16,12 @@ Sans `DATABASE_URL`, les réservations utilisent un stockage mémoire (développ
 ## Ce qui est livré (V1 publique)
 
 - Pages : `/` (10 sections du parcours QUESTION → CONVERSATION), `/expertises`, `/transformations`, `/transformations/[slug]` (6 temps : question → impact), `/engagement` (Observatoire du judo + Programme jeunes), `/parlons-nous`.
-- Design system (refonte v2) : fonds encre `#04050D`, dégradés bleus et violets (barres de lumière, halos, anneaux, ciel, cartes dégradées), sections blanches et bleu électrique `#1F2CFF`. Footer inspiré de Superconscious (carte bordée, halo violet/bleu, grand mot-signe). Typographie : Geomini uniquement, 5 graisses (200 → 600), auto-hébergée dans `src/app/fonts/geomini` (licence OFL).
-- Motion : révélation de titres ligne par ligne et blocs au scroll (GSAP ScrollTrigger), barres lumineuses animées, curseur discret (libellé via `data-cursor`), transition de page, `prefers-reduced-motion` respecté.
+- Direction artistique (v3) :
+  - **Hero** : aplat bleu `#0000EE`, silhouette noire d'athlète, mot-signe « D&D » géant. Le hero est épinglé : l'athlète ne bouge pas et change de tenue au scroll (12 disciplines : judo, football, rugby, basket, football américain, cyclisme, escrime, boxe, natation, tennis, ski, athlétisme). Silhouettes en SVG dans `src/components/Athlete.tsx`. Pour passer à de vraies photos, renseigner `photo` dans `OUTFITS`.
+  - **Intro** « ENTREZ. » (une fois par session, bouton PASSER →).
+  - **Reste du site** : « Premium Future Tech Editorial ». Fond `#F7F7F5`, titres compacts, micro-textes, accent violet `#4C22FF` (règle 70 / 20 / 10), visuels sombres en contre-jour violet (`src/components/Frame.tsx`, à remplacer par des photos), CTA final avec halo violet qui se fond dans un footer `#030305`.
+  - Typographie : Geomini (titres, 5 graisses) + Special Gothic (textes), auto-hébergées dans `src/app/fonts` (licence OFL).
+  - Animations sobres : Lenis (défilement doux), entrées en fondu + 24 px, zoom d'image 1.04 → 1, parallax ≤ 40 px ; `prefers-reduced-motion` respecté. Curseur natif.
 - Réservation propriétaire : motif → durée (30/60/90) → calendrier → créneau → infos → confirmation. API `/api/availability` et `/api/appointments` (validation zod, honeypot, rate limiting, contrôle d'origine, verrou par jour anti double-réservation, créneaux revalidés côté serveur, fuseau Europe/Paris, délai minimum 24 h, horizon 60 j, 4 RDV/jour max). L'API publique n'expose que des disponibilités, jamais de données de RDV.
 - E-mails : gabarits D&D (confirmation + notification admin) mis en file dans `email_logs`.
 - Base : `db/schema.sql` couvre toutes les tables de la section 44.

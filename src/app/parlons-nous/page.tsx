@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Lines } from '@/components/Lines';
 import { Booking } from '@/components/Booking';
 
 export const metadata: Metadata = {
@@ -10,11 +9,17 @@ export const metadata: Metadata = {
 
 export default function Parlons() {
   return (
-    <section className="sec halo-soft" style={{ paddingTop: 'clamp(140px, 22vh, 220px)' }}>
-      <span className="tag dot sky" data-fade>Parlons-nous</span>
-      <Lines as="h1" className="h-hero mt-m" lines={['Et vous ?']} />
-      <Lines className="h-lg w-l mt-s ghost" lines={['Qu’aimeriez-vous changer ?']} />
-      <div className="mt-l" style={{ maxWidth: 1100 }}><Booking /></div>
-    </section>
+    <>
+      <section className="ed p-head">
+        <div className="in intro-ed">
+          <p className="micro lbl" data-fade>Parlons-nous ↘</p>
+          <h1 className="h1" data-fade>Et vous ?<br /><em>Qu’aimeriez-vous changer ?</em></h1>
+          <p className="micro side" data-fade>Un sujet, une durée, un créneau. Réservation directe, confirmation par e-mail.</p>
+        </div>
+      </section>
+      <section className="ed" style={{ paddingBottom: 'var(--section)' }}>
+        <div className="in"><Booking /></div>
+      </section>
+    </>
   );
 }

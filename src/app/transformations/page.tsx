@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Lines } from '@/components/Lines';
+import { Frame } from '@/components/Frame';
 import { TRANSFORMATIONS } from '@/content/data';
 
 export const metadata: Metadata = {
@@ -9,31 +8,33 @@ export const metadata: Metadata = {
   alternates: { canonical: '/transformations' },
 };
 
-const VISUALS = ['v1', 'v2', 'v3'];
+const OUT = [5, 6, 4];
 
 export default function Transformations() {
+  const [first, ...rest] = TRANSFORMATIONS;
   return (
     <>
-      <section className="sec full halo-soft" style={{ justifyContent: 'flex-end' }}>
-        <span className="tag dot sky" data-fade>Transformations</span>
-        <Lines as="h1" className="h-hero mt-m" lines={['Chaque transformation', 'commence par', 'une question.']} />
+      <section className="ed p-head">
+        <div className="in intro-ed">
+          <p className="micro lbl" data-fade>Transformations ↘</p>
+          <h1 className="h1" data-fade>Chaque transformation<br /><em>commence par une question.</em></h1>
+          <p className="micro side" data-fade>Projets présentés à titre d’exemple — les études de cas réelles arrivent.</p>
+        </div>
       </section>
 
-      <section className="sec light">
-        {TRANSFORMATIONS.map((t, i) => (
-          <Link key={t.slug} href={`/transformations/${t.slug}`} className="trow" data-cursor="VIEW">
-            <span className="small">0{i + 1} — {t.sector}</span>
-            <div className="thumb"><div className={VISUALS[i % 3]} /></div>
-            <div>
-              <h2 className="h-md title" style={{ margin: 0 }}>{t.punchline}</h2>
-              <div className="meta" style={{ marginTop: 14 }}>
-                <span className="tag">{t.project}</span>
-                {t.expertises.map((x) => <span className="tag" key={x}>{x}</span>)}
-              </div>
-            </div>
-            <span className="circle" aria-hidden="true">→</span>
-          </Link>
-        ))}
+      <section className="vis-wrap" style={{ paddingBottom: 'var(--section)' }} data-tone="light">
+        <div className="gal">
+          <Frame className="wide" outfit={OUT[0]} href={`/transformations/${first.slug}`} label={first.project} parallax pose={{ right: '14%', height: '104%' }}>
+            <div className="cap"><p className="h3" style={{ color: '#fff', maxWidth: '18ch' }}>{first.punchline}</p><span className="micro">{first.sector} · {first.expertises.join(' · ')} ↗</span></div>
+          </Frame>
+          <div className="gal-2">
+            {rest.map((t, k) => (
+              <Frame key={t.slug} outfit={OUT[k + 1]} href={`/transformations/${t.slug}`} label={t.project} pose={{ right: k ? '10%' : '-6%', height: k ? '112%' : '118%' }}>
+                <div className="cap"><p className="h4">{t.punchline}</p><span className="micro">{t.sector} ↗</span></div>
+              </Frame>
+            ))}
+          </div>
+        </div>
       </section>
     </>
   );

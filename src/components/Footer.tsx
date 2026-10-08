@@ -3,39 +3,42 @@ import { NAV, SITE } from '@/lib/site';
 
 export function Footer() {
   return (
-    <footer className="foot">
-      <div className="foot-card">
+    <footer className="foot" data-tone="light">
+      <div className="in">
         <div className="foot-top">
           <div>
-            <p className="small" style={{ margin: '0 0 14px', color: 'rgba(255,255,255,.72)' }}>Changer le sport.</p>
-            <a className="foot-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
-            <ul className="foot-nav">
+            <p className="logo-f" style={{ margin: 0 }}>D&amp;D</p>
+            <p style={{ margin: '14px 0 0', maxWidth: 240, lineHeight: 1.5 }}>Cabinet de conseil, d’innovation et de transformation dédié au sport.</p>
+          </div>
+          <div>
+            <h3>Site</h3>
+            <ul>
+              <li><Link href="/">Accueil</Link></li>
               {NAV.map((n) => <li key={n.href}><Link href={n.href}>{n.label}</Link></li>)}
-              <li><Link href="/parlons-nous">Parlons-nous</Link></li>
             </ul>
           </div>
-          <div className="foot-cta">
-            <p className="h-sm">Qu’aimeriez-vous changer&nbsp;?</p>
-            <p>Choisissez un sujet, une durée, un créneau. Nous ouvrons la conversation.</p>
-            <Link href="/parlons-nous" className="btn btn-white">Lancer une conversation</Link>
+          <div>
+            <h3>Engagement</h3>
+            <ul>
+              <li><Link href="/engagement#observatoire">Observatoire du judo</Link></li>
+              <li><Link href="/engagement#programme-jeunes">Programme jeunes</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Contact</h3>
+            <ul>
+              <li><Link href="/parlons-nous">Prendre rendez-vous</Link></li>
+              <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            </ul>
           </div>
         </div>
-
-        <div className="foot-row">
-          <span>Par l’émotion</span>
-          <span>Par l’innovation</span>
-          <span>Par l’engagement</span>
-          <span>De l’intuition au mouvement</span>
+        <div className="foot-mid">
+          <span>{SITE.legal}</span>
+          <span>Par l’émotion. Par l’innovation. Par l’engagement.</span>
         </div>
-        <hr className="hr" style={{ background: 'rgba(255,255,255,.22)' }} />
-        <span className="foot-word" aria-hidden="true">D&amp;D Consulting</span>
-
-        <div className="foot-bottom">
-          <span>© {new Date().getFullYear()} {SITE.legal}. Tous droits réservés.</span>
-          <nav aria-label="Informations légales">
-            <Link href="/mentions-legales">Mentions légales</Link>
-            <Link href="/mentions-legales#confidentialite">Confidentialité</Link>
-          </nav>
+        <div className="foot-bot">
+          <span>© {new Date().getFullYear()} {SITE.legal}. Tous droits réservés. · <Link href="/mentions-legales">Mentions légales</Link></span>
+          <span>Construit pour changer le sport.</span>
         </div>
       </div>
     </footer>

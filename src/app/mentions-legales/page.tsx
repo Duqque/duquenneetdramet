@@ -10,17 +10,20 @@ export const metadata: Metadata = {
 
 export default function Legal() {
   return (
-    <section className="sec light" style={{ paddingTop: 'clamp(140px, 22vh, 220px)' }}>
-      <h1 className="h-xl">Mentions légales</h1>
-      <div className="split mt-l">
-        <p className="small">Éditeur</p>
-        <p className="lead">{SITE.legal} — informations légales à compléter (forme sociale, siège, SIREN, directeur de la publication, hébergeur).</p>
-      </div>
-      <hr className="hr mt-l" />
-      <div className="split mt-l" id="confidentialite">
-        <p className="small">Confidentialité</p>
-        <p className="lead">Politique de confidentialité à compléter : données collectées via la prise de rendez-vous, finalités, durées de conservation, droits RGPD et contact.</p>
-      </div>
-    </section>
+    <>
+      <section className="ed p-head">
+        <div className="in intro-ed">
+          <p className="micro lbl">Informations ↘</p>
+          <h1 className="h1">Mentions légales</h1>
+          <p className="micro side">Contenu à compléter.</p>
+        </div>
+      </section>
+      <section className="ed" style={{ paddingBottom: 'var(--section)' }}>
+        <div className="in">
+          <div className="story"><span className="num-id">01</span><h2 className="h3">Éditeur</h2><p className="p">{SITE.legal} — forme sociale, siège, SIREN, directeur de la publication et hébergeur à compléter.</p></div>
+          <div className="story" id="confidentialite"><span className="num-id">02</span><h2 className="h3">Confidentialité</h2><p className="p">Données collectées via la prise de rendez-vous, finalités, durées de conservation, droits RGPD et contact : à compléter.</p></div>
+        </div>
+      </section>
+    </>
   );
 }
