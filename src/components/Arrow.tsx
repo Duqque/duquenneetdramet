@@ -1,9 +1,11 @@
 import Link from 'next/link';
 
-export function CTA({ href, children, solid }: { href: string; children: React.ReactNode; solid?: boolean }) {
+type Variant = 'white' | 'dark' | 'blue' | 'line';
+
+export function CTA({ href, children, variant = 'white' }: { href: string; children: React.ReactNode; variant?: Variant }) {
   return (
-    <Link href={href} className={`btn${solid ? ' solid' : ''}`} data-cursor="OPEN">
-      {children} <span className="arrow" aria-hidden="true">→</span>
+    <Link href={href} className={`btn btn-${variant}`}>
+      {children} <span className="arr" aria-hidden="true">→</span>
     </Link>
   );
 }

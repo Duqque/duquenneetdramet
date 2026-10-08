@@ -9,19 +9,13 @@ import { SITE } from '@/lib/site';
 
 const geomini = localFont({
   src: [
-    { path: './fonts/geomini-latin-500-normal.woff2', weight: '500' },
-    { path: './fonts/geomini-latin-700-normal.woff2', weight: '700' },
-    { path: './fonts/geomini-latin-800-normal.woff2', weight: '800' },
+    { path: './fonts/geomini/Geomini-ExtraLight.woff2', weight: '200' },
+    { path: './fonts/geomini/Geomini-Light.woff2', weight: '300' },
+    { path: './fonts/geomini/Geomini-Regular.woff2', weight: '400' },
+    { path: './fonts/geomini/Geomini-Medium.woff2', weight: '500' },
+    { path: './fonts/geomini/Geomini-SemiBold.woff2', weight: '600' },
   ],
   variable: '--f-geomini',
-  display: 'swap',
-});
-const gothic = localFont({
-  src: [
-    { path: './fonts/special-gothic-latin-400-normal.woff2', weight: '400' },
-    { path: './fonts/special-gothic-latin-600-normal.woff2', weight: '600' },
-  ],
-  variable: '--f-gothic',
   display: 'swap',
 });
 
@@ -32,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: { siteName: SITE.name, locale: 'fr_FR', type: 'website' },
   alternates: { canonical: '/' },
 };
-export const viewport: Viewport = { themeColor: '#000000' };
+export const viewport: Viewport = { themeColor: '#04050d' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const ld = {
@@ -44,9 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     slogan: 'Changer le sport.',
   };
   return (
-    <html lang="fr" className={`${geomini.variable} ${gothic.variable}`}>
+    <html lang="fr" className={geomini.variable}>
       <body>
-        <a href="#main" className="hp" style={{ position: 'absolute' }}>Aller au contenu</a>
+        <a href="#main" className="skip">Aller au contenu</a>
         <Nav />
         <main id="main" className="page">{children}</main>
         <Footer />

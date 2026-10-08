@@ -9,23 +9,29 @@ export const metadata: Metadata = {
   alternates: { canonical: '/transformations' },
 };
 
+const VISUALS = ['v1', 'v2', 'v3'];
+
 export default function Transformations() {
   return (
     <>
-      <section className="section">
-        <Lines as="h1" className="display xl sentence" lines={['Chaque transformation', 'commence par', 'une question.']} />
+      <section className="sec full halo-soft" style={{ justifyContent: 'flex-end' }}>
+        <span className="tag dot sky" data-fade>Transformations</span>
+        <Lines as="h1" className="h-hero mt-m" lines={['Chaque transformation', 'commence par', 'une question.']} />
       </section>
-      <section className="section tight">
+
+      <section className="sec light">
         {TRANSFORMATIONS.map((t, i) => (
-          <Link key={t.slug} href={`/transformations/${t.slug}`} className="tcard" data-cursor="VIEW">
-            <div className="meta">
-              <span className="tag">0{i + 1}</span>
-              <span className="tag">{t.sector}</span>
-              {t.expertises.map((x) => <span className="tag" key={x}>{x}</span>)}
+          <Link key={t.slug} href={`/transformations/${t.slug}`} className="trow" data-cursor="VIEW">
+            <span className="small">0{i + 1} — {t.sector}</span>
+            <div className="thumb"><div className={VISUALS[i % 3]} /></div>
+            <div>
+              <h2 className="h-md title" style={{ margin: 0 }}>{t.punchline}</h2>
+              <div className="meta" style={{ marginTop: 14 }}>
+                <span className="tag">{t.project}</span>
+                {t.expertises.map((x) => <span className="tag" key={x}>{x}</span>)}
+              </div>
             </div>
-            <h2 className="display xl sentence">{t.punchline}</h2>
-            <div className="visual" aria-hidden="true"><span>{t.impact.value}</span></div>
-            <p className="eyebrow">{t.project} — {t.client}</p>
+            <span className="circle" aria-hidden="true">→</span>
           </Link>
         ))}
       </section>

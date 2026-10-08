@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 
 export default function Parlons() {
   return (
-    <>
-      <section className="section tight" style={{ paddingTop: '22vh' }}>
-        <Lines as="h1" className="display xl" lines={['Et vous ?', 'Qu’aimeriez-vous', 'changer ?']} />
-      </section>
-      <section className="section tight"><Booking /></section>
-    </>
+    <section className="sec halo-soft" style={{ paddingTop: 'clamp(140px, 22vh, 220px)' }}>
+      <span className="tag dot sky" data-fade>Parlons-nous</span>
+      <Lines as="h1" className="h-hero mt-m" lines={['Et vous ?']} />
+      <Lines className="h-lg w-l mt-s ghost" lines={['Qu’aimeriez-vous changer ?']} />
+      <div className="mt-l" style={{ maxWidth: 1100 }}><Booking /></div>
+    </section>
   );
 }

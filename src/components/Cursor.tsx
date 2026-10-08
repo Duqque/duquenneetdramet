@@ -7,15 +7,15 @@ export function Cursor() {
 
   useEffect(() => {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    document.body.classList.add('has-cursor');
+    
     const el = ref.current!;
     let x = 0, y = 0, cx = 0, cy = 0, raf = 0;
     const move = (e: PointerEvent) => {
       x = e.clientX; y = e.clientY;
-      const t = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-cursor], a, button');
-      const label = t?.dataset.cursor ?? (t ? '→' : '');
+      const t = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-cursor]');
+      const label = t?.dataset.cursor ?? '';
       el.textContent = label;
-      el.classList.toggle('big', Boolean(t) && label.length > 0);
+      el.classList.toggle('big', label.length > 0);
     };
     const tick = () => {
       cx += (x - cx) * 0.22; cy += (y - cy) * 0.22;
@@ -27,7 +27,7 @@ export function Cursor() {
     return () => {
       window.removeEventListener('pointermove', move);
       cancelAnimationFrame(raf);
-      document.body.classList.remove('has-cursor');
+      
     };
   }, []);
 
