@@ -18,15 +18,11 @@ export function Motion() {
     if (reduced()) return;
     const lenis = new Lenis({ lerp: 0.11 });
     window.__lenis = lenis;
-    if (document.documentElement.classList.contains('intro-on')) lenis.stop();
-    const resume = () => lenis.start();
-    window.addEventListener('dd:intro-done', resume);
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (t: number) => lenis.raf(t * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     return () => {
-      window.removeEventListener('dd:intro-done', resume);
       gsap.ticker.remove(tick);
       lenis.destroy();
       window.__lenis = undefined;

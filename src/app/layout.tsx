@@ -29,8 +29,8 @@ const gothic = localFont({
   display: 'swap',
 });
 
-// Avant le premier rendu : active les animations (sauf mouvement réduit) et masque l'intro si déjà vue.
-const BOOT = "try{var d=document.documentElement,r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!r)d.classList.add('js');if(r||sessionStorage.getItem('dd-intro'))d.classList.add('no-intro')}catch(e){document.documentElement.classList.add('no-intro')}";
+// Avant le premier rendu : active les animations d'entrée (sauf mouvement réduit).
+const BOOT = "try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js')}catch(e){}";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),

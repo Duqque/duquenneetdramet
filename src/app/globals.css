@@ -130,19 +130,6 @@ img, svg { display: block; }
 .m-menu a { font-family: var(--display); font-weight: 500; font-size: 40px; letter-spacing: -0.045em; line-height: 1.1; }
 .m-menu .btn { margin-top: 24px; align-self: flex-start; }
 
-/* ---------- Intro ---------- */
-.intro { position: fixed; inset: 0; z-index: 200; background: #000; color: #fff; display: grid; place-items: center; overflow: hidden; }
-.no-intro .intro { display: none; }
-.intro .seed { width: 6px; height: 6px; border-radius: 50%; background: #fff; }
-.intro .enter { position: absolute; top: calc(50% + 26px); left: 50%; transform: translateX(-50%); font-family: var(--text); font-size: 11px; letter-spacing: 0.4em; padding: 8px 0 8px 0.4em; }
-.intro .rule { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #fff; transform: scaleX(0); }
-.intro .athlete { position: absolute; left: 50%; bottom: 0; height: 74vh; width: auto; transform: translateX(-42%); --fig: #fff; --cut: #000; clip-path: inset(100% 0 0 0); }
-.intro .athlete .outfit { opacity: 0; } .intro .athlete .outfit[data-on] { opacity: 1; }
-.intro .mark { position: absolute; font-family: var(--display); font-weight: 600; font-size: clamp(5rem, 24vw, 22rem); letter-spacing: -0.07em; line-height: 0.8; mix-blend-mode: difference; }
-.intro .mark span { display: inline-block; opacity: 0; transform: translateY(30%); }
-.intro .skip-btn { position: absolute; right: var(--pad); bottom: 28px; font-size: 10px; letter-spacing: 0.16em; opacity: 0.6; transition: opacity 0.3s; }
-.intro .skip-btn:hover { opacity: 1; }
-
 /* ---------- Hero (bleu, athlète) ---------- */
 .hero { position: relative; height: 100svh; overflow: hidden; background: var(--hero-blue); color: #fff; --fig: #000; --cut: var(--hero-blue); }
 .hero .athlete { position: absolute; left: 50%; bottom: 0; height: 88svh; width: auto; transform: translateX(-34%); }
@@ -347,8 +334,11 @@ fieldset.glass { border: 0; min-width: 0; margin: 0; }
 
 /* Hero — mode photo : les images couvrent tout l'écran, l'athlète ne bouge pas */
 .hero.photo .frames { position: absolute; inset: 0; }
-.hero.photo .frame-ph { position: absolute; inset: 0; opacity: 0; transform: scale(1.025); transition: opacity 0.7s var(--ease), transform 1.4s var(--ease); }
-.hero.photo .frame-ph[data-on] { opacity: 1; transform: scale(1); }
+.hero.photo .frame-ph { position: absolute; inset: 0; opacity: 0; }
+/* Seul l'équipement change : pas de zoom, l'image précédente reste opaque dessous pendant un fondu très court. */
+.hero.photo .frame-ph[data-prev] { opacity: 1; z-index: 1; }
+.hero.photo .frame-ph[data-on] { opacity: 1; z-index: 2; animation: kitIn 0.14s linear; }
+@keyframes kitIn { from { opacity: 0; } to { opacity: 1; } }
 .hero.photo .frame-ph img { object-fit: cover; object-position: 62% 30%; }
 .hero.photo::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(0, 0, 60, 0.35) 0%, rgba(0, 0, 60, 0) 45%); }
 .hero.photo .word { left: calc(var(--pad) - 0.06em); right: auto; bottom: clamp(24px, 6vh, 72px); width: auto; }
@@ -378,7 +368,6 @@ fieldset.glass { border: 0; min-width: 0; margin: 0; }
   transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), visibility 0.5s;
 }
 .cc-hidden { opacity: 0; transform: translateY(16px); visibility: hidden; pointer-events: none; }
-.intro-on .cc, .intro-on .cc-min { display: none; }
 .cc-tile { background: var(--ci-tile); border: 1px solid var(--ci-line); border-radius: 8px; }
 .cc-head { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 10px 12px; }
 .cc-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--ci-lime); color: var(--ci-ink); display: grid; place-items: center; font-weight: 600; font-size: 11px; letter-spacing: -0.03em; }

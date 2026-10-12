@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Hero } from '@/components/home/Hero';
-import { Intro } from '@/components/home/Intro';
 import { Athlete } from '@/components/Athlete';
 import { Frame } from '@/components/Frame';
 import { Btn } from '@/components/Arrow';
@@ -22,7 +21,6 @@ export default function Home() {
   const [t1, t2, t3] = TRANSFORMATIONS;
   return (
     <>
-      <Intro />
       <Hero />
 
       {/* 01 — Intro éditoriale */}
